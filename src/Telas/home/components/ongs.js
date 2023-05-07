@@ -1,34 +1,36 @@
-import React from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
-import useOngs from "../../../hooks/useOngs";
+import React, {useContext} from "react";
+import { FlatList, StyleSheet, Text} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import Ong from "./ong";
+import OngsContext from "../../../context/ongsContext";
 
 
 export default function Ongs({Topo, ImageHome}){
 
-    const [titulo, lista] = useOngs();
+    const {state} = useContext(OngsContext)
 
     const TopoLista = () => {
         return (<>
             <Topo/>
             <ImageHome/>
-            <Text style={estilos.TopoLista}>{titulo}</Text>
+            <Text style={estilos.TopoLista}>{state.ongs.titulo}</Text>
         </>)
     }
+
 
     const navigation = useNavigation();
 
     return (<FlatList
-        data={lista}
+        data={state.ongs.lista}
         renderItem={({item}) => 
-        <Ong {...item} onPress={()=>{navigation.navigate("DetalhesOng", item)}}/>
+            <Ong {...item} onPress={()=>{navigation.navigate("DetalhesOng", item)}}/>
         }
         ListHeaderComponent={TopoLista}
-        keyExtractor={({nome}) => nome}
+        keyExtractor={({id}) => id}
     />)
 }
-console.log(Ong)
+
+
 const estilos = StyleSheet.create({
     TopoLista: {
         fontSize: 20,

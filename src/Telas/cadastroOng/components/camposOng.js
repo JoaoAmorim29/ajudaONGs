@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {StyleSheet, View, Text} from 'react-native';
 import Input from "../../../shared/components/input/input";
+import ButtonCadastroOng from "./button";
+import OngsContext from "../../../context/ongsContext";
 
 
 export default function CamposOng(){
@@ -20,26 +22,31 @@ export default function CamposOng(){
     const [contatoOng2, setContatoOng2] = useState('');
     const [urlOng, setUrlOng] = useState('');
     const [descricaoOng, setDescricaoOng] = useState('');
+    const [imagemOng, setImagemOng] = useState('');
+
+    const {dispatch} = useContext(OngsContext);
 
     const ongData = {
-        nomeOng: nomeOng,
-        emailOng: emailOng,
-        categoriaOng: categoriaOng,
-        senhaOng: senhaOng,
-        confirmeSenhaOng: confirmeSenhaOng,
+        nome: nomeOng,
+        email: emailOng,
+        categoria: categoriaOng,
+        senha: senhaOng,
+        confirmeSenha: confirmeSenhaOng,
         endereco: {
-            estadoOng: estadoOng,
-            cidadeOng: cidadeOng,
-            cepOng: cepOng,
-            bairroOng: bairroOng,
-            ruaOng: ruaOng,
-            numeroOng: numeroOng,
-            complementoOng: complementoOng
+            estado: estadoOng,
+            cidade: cidadeOng,
+            cep: cepOng,
+            bairro: bairroOng,
+            rua: ruaOng,
+            numero: numeroOng,
+            complemento: complementoOng
         },
-        contatoOng1: contatoOng1,
-        contatoOng2: contatoOng2,
-        urlOng: urlOng,
-        descricaoOng: descricaoOng
+        contato1: contatoOng1,
+        contato2: contatoOng2,
+        url: urlOng,
+        descricao: descricaoOng,
+        imagem: imagemOng,
+
     }
 
     return(<>
@@ -178,6 +185,15 @@ export default function CamposOng(){
                     onChangeText={text => setUrlOng(text)}
                 />
             </View>
+
+            <View>
+                <Text style={estilos.label}>Avatar</Text>
+                <Input 
+                    placeholder="url"
+                    name="imagemOng"
+                    onChangeText={text => setUrlOng(text)}
+                />
+            </View>
             
             <View>
                 <Text style={estilos.label}>Descrição (opcional)</Text>
@@ -187,6 +203,14 @@ export default function CamposOng(){
                 />
             </View>
         </View>
+
+        <ButtonCadastroOng onPress={() => {
+            dispatch({
+                type: 'createOng',
+                payload: ongData, 
+            })
+            console.log(ongData)
+        }}/>
     </>)
 }
 

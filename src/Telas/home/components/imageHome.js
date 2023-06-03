@@ -14,7 +14,7 @@ export default function ImageHome(){
             <Image source={backgroundImage} style={estilos.imageHome}/>
             <View style={estilos.botaoLegenda}>
                 <Text style={estilos.legenda}>Nos ajude a ajudar o mundo</Text>
-                <TouchableOpacity style={estilos.botao} onPress={()=>{navigation.navigate('Menu')}}>
+                <TouchableOpacity style={estilos.botao} /*onPress={()=>{navigation.navigate('Menu')}}*/>
                     <Text style={estilos.textBotao}>Quero Ajudar</Text>
                 </TouchableOpacity>
             </View>

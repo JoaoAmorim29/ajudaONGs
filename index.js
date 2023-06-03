@@ -4,15 +4,15 @@
 
 import {AppRegistry, SafeAreaView, StatusBar, StyleSheet, Text} from 'react-native';
 import {name as appName} from './app.json';
-import AppRotas from './src/rotas/appRotas';
 import { OngsProvider } from './src/context/ongsContext';
+import LoginRotas from './src/rotas/loginRotas';
 
 const App = () => {
     return (
         <OngsProvider>
             <SafeAreaView style={estilos.tela}>
                 <StatusBar/>
-                <AppRotas/>
+                <LoginRotas/>
             </SafeAreaView>
         </OngsProvider>
     )

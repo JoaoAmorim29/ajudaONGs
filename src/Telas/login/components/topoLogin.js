@@ -1,12 +1,15 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
-import seta from "../../../assets/seta-direita.png"
+import seta from "../../../assets/seta-direita.png";
+import { useNavigation } from '@react-navigation/native';
 
 export default function TopoCadastroUsuario(){
+    const navigation = useNavigation();
+
     return(<>
         <View style={estilos.topoCadastro}>
-            <TouchableOpacity style={estilos.forgotPassword}>
-                <Text style={estilos.forgotPasswordText}>Forgot Password</Text>
+            <TouchableOpacity style={estilos.forgotPassword} onPress={()=>{navigation.navigate('MenuRotas')}}>
+                <Text style={estilos.forgotPasswordText}>Cadastrar</Text>
                 <Image source={seta} style={estilos.forgotPasswordImg}/>
             </TouchableOpacity>
 

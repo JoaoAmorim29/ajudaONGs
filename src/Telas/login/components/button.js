@@ -1,10 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 export default function ButtonLogin(){
+    const navigation = useNavigation();
+
     return(<>
         <View style={estilos.viewButton}>
-            <TouchableOpacity style={estilos.buttonLogin}>
+            <TouchableOpacity style={estilos.buttonLogin} onPress={()=>{navigation.navigate("AppRotas")}}>
                 <Text style={estilos.textButtonLogin}>Entrar</Text>
             </TouchableOpacity>
         </View>

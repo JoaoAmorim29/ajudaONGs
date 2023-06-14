@@ -5,11 +5,6 @@ import seta from "../../../assets/seta-direita.png"
 export default function TopoCadastroOng(){
     return(<>
         <View style={estilos.topoCadastro}>
-            <TouchableOpacity style={estilos.forgotPassword}>
-                <Text style={estilos.forgotPasswordText}>Sign Up</Text>
-                <Image source={seta} style={estilos.forgotPasswordImg}/>
-            </TouchableOpacity>
-
             <Text style={estilos.titulo}>Cadastre sua Ong</Text>
         </View>
     </>)

@@ -7,11 +7,10 @@ const ongs = {
     titulo: 'ONGs',
     lista: [
         {
-            id: 1,
+            key: 1,
             nome: 'ABCD',
             categoria: 'Erradiação da Pobreza',
             senha: '123',
-            ConfirmeSenha: '123',
             endereco: {
                 estado: "e",
                 cidade: "c",
@@ -22,18 +21,16 @@ const ongs = {
                 complemento: "c"
             },
             contato1: '12',
-            contato2: '1234',
             url: 'url',
             descricao: 'descricao',
             imagem : green,
         },
         {
-            id: 2,
+            key: 2,
             nome: 'Associação Caminho',
             email: 'email@gmail.com',
             categoria: 'Redução de Desigualdades',
             senha: '123',
-            ConfirmeSenha: '123',
             endereco: {
                 estado: "e",
                 cidade: "c",
@@ -44,17 +41,15 @@ const ongs = {
                 complemento: "c"
             },
             contato1: '12',
-            contato2: '1234',
             url: 'url',
             descricao: 'descricao',
             imagem : grow,
         }, {
-            id: 3,
+            key: 3,
             nome: 'Casa Azul',
             email: 'email@gmail.com',
             categoria: 'Vida na Água',
             senha: '123',
-            ConfirmeSenha: '123',
             endereco: {
                 estado: "e",
                 cidade: "c",
@@ -65,17 +60,15 @@ const ongs = {
                 complemento: "c"
             },
             contato1: '12',
-            contato2: '1234',
             url: 'url',
             descricao: 'descricao',
             imagem : potager,
         }, {
-            id: 4,
+            key: 4,
             nome: 'Candido Ferreira',
             email: 'email@gmail.com',
             categoria: 'Erradiação da Pobreza',
             senha: '123',
-            ConfirmeSenha: '123',
             endereco: {
                 estado: "e",
                 cidade: "c",
@@ -86,7 +79,6 @@ const ongs = {
                 complemento: "c"
             },
             contato1: '12',
-            contato2: '1234',
             url: 'url',
             descricao: 'descricao',
             imagem : salad,

@@ -1,7 +1,7 @@
 import React from "react";
 import maosDadas from '../../../assets/de-maos-dadas.png'
 import menu from '../../../assets/menu.png'
-import { Image, View, StyleSheet, Text } from "react-native";
+import { Image, View, StyleSheet, Text} from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function Topo(){
@@ -10,7 +10,7 @@ export default function Topo(){
             <View style={estilos.divImageTitle}>
                 
                 <Image source={maosDadas}/>
-                <Text style={estilos.titleApp}>NOME</Text>
+                <Text style={estilos.titleApp}>AidFinder</Text>
             </View>
         </View>
     </>)

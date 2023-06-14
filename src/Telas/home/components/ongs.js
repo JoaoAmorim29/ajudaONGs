@@ -2,18 +2,16 @@ import React, {useContext} from "react";
 import { FlatList, StyleSheet, Text} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import Ong from "./ong";
-import OngsContext from "../../../context/ongsContext";
-
+import ongs from "../../../mocks/ongs";
 
 export default function Ongs({Topo, ImageHome}){
 
-    const {state} = useContext(OngsContext)
 
     const TopoLista = () => {
         return (<>
             <Topo/>
             <ImageHome/>
-            <Text style={estilos.TopoLista}>{state.ongs.titulo}</Text>
+            <Text style={estilos.TopoLista}>{ongs.titulo}</Text>
         </>)
     }
 
@@ -21,7 +19,7 @@ export default function Ongs({Topo, ImageHome}){
     const navigation = useNavigation();
 
     return (<FlatList
-        data={state.ongs.lista}
+        data={ongs.lista}
         renderItem={({item}) => 
             <Ong {...item} onPress={()=>{navigation.navigate("DetalhesOng", item)}}/>
         }

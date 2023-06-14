@@ -9,7 +9,6 @@ export default function CadastroUsuario(){
         <ScrollView style={estilos.backgroundColor}>
             <TopoCadastroUsuario/>
             <CamposUsuario/>
-            <ButtonCadastroUsuario/>
         </ScrollView>
     </>)
 }

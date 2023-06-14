@@ -1,16 +1,19 @@
 import React, { useState, useContext } from "react";
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Image, Alert} from 'react-native';
 import Input from "../../../shared/components/input/input";
 import ButtonCadastroOng from "./button";
-import OngsContext from "../../../context/ongsContext";
+import ongs from "../../../mocks/ongs";
+import JusticeLeague from "../../../assets/justiceLeague.png"
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function CamposOng(){
+    const navigation = useNavigation();
+
     const [nomeOng, setNomeOng] = useState('');
     const [emailOng, setEmailOng] = useState('');
     const [categoriaOng, setCategoriaOng] = useState('');
     const [senhaOng, setSenhaOng] = useState('');
-    const [confirmeSenhaOng, setConfirmeSenhaOng] = useState('');
     const [estadoOng, setEstadoOng] = useState('');
     const [cidadeOng, setCidadeOng] = useState('');
     const [cepOng, setCepOng] = useState('');
@@ -19,19 +22,16 @@ export default function CamposOng(){
     const [numeroOng, setNumeroOng] = useState('');
     const [complementoOng, setComplementoOng] = useState('');
     const [contatoOng1, setContatoOng1] = useState('');
-    const [contatoOng2, setContatoOng2] = useState('');
     const [urlOng, setUrlOng] = useState('');
     const [descricaoOng, setDescricaoOng] = useState('');
-    const [imagemOng, setImagemOng] = useState('');
-
-    const {dispatch} = useContext(OngsContext);
+    const [imagemOng, setImagemOng] = useState(JusticeLeague);
 
     const ongData = {
+        key: Math.random() * 999,
         nome: nomeOng,
         email: emailOng,
         categoria: categoriaOng,
         senha: senhaOng,
-        confirmeSenha: confirmeSenhaOng,
         endereco: {
             estado: estadoOng,
             cidade: cidadeOng,
@@ -42,7 +42,6 @@ export default function CamposOng(){
             complemento: complementoOng
         },
         contato1: contatoOng1,
-        contato2: contatoOng2,
         url: urlOng,
         descricao: descricaoOng,
         imagem: imagemOng,
@@ -83,6 +82,7 @@ export default function CamposOng(){
                 <Input 
                     placeholder="Digite uma senha"
                     name="senhaOng"
+                    secureTextEntry={true}
                     onChangeText={text => setSenhaOng(text)}
                 />
             </View>
@@ -92,6 +92,7 @@ export default function CamposOng(){
                 <Input 
                     placeholder="Digite sua senha novamente"
                     name="confirmeSenhaOng"
+                    secureTextEntry={true}
                     onChangeText={text => setConfirmeSenhaOng(text)}
                 />
             </View>
@@ -129,6 +130,7 @@ export default function CamposOng(){
                     placeholder="Digite seu bairro"
                     name="barroOng"
                     onChangeText={text => setBairroOng(text)}
+                    
                 />
             </View>
 
@@ -169,15 +171,6 @@ export default function CamposOng(){
             </View>
 
             <View>
-                <Text style={estilos.label}>Contato (2)</Text>
-                <Input 
-                    placeholder="(XX) 99999-9999"
-                    name="contatoOng2"
-                    onChangeText={text => setContatoOng2(text)}
-                />
-            </View>
-
-            <View>
                 <Text style={estilos.label}>Site (opcional)</Text>
                 <Input 
                     placeholder="(XX) 99999-9999"
@@ -205,12 +198,11 @@ export default function CamposOng(){
         </View>
 
         <ButtonCadastroOng onPress={() => {
-            dispatch({
-                type: 'createOng',
-                payload: ongData, 
-            })
-            console.log(ongData)
-        }}/>
+            ongs.lista.push(ongData);
+            Alert.alert("Cadastrado com sucesso");
+            navigation.navigate('LoginRotas');
+            
+        }}  key={ Math.random() * 999}/>
     </>)
 }
 

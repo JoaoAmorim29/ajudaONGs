@@ -5,10 +5,6 @@ import seta from "../../../assets/seta-direita.png"
 export default function TopoCadastroUsuario(){
     return(<>
         <View style={estilos.topoCadastro}>
-            <TouchableOpacity style={estilos.forgotPassword}>
-                <Text style={estilos.forgotPasswordText}>Sign Up</Text>
-                <Image source={seta} style={estilos.forgotPasswordImg}/>
-            </TouchableOpacity>
 
             <Text style={estilos.titulo}>Cadastre-se</Text>
         </View>

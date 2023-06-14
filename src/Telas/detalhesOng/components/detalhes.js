@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import potager from '../../../assets/potager.png'
 
-export default function Detalhes({nome, categoria, imagem}){
+export default function Detalhes({nome, categoria, imagem, contato1, contato2, email, descricao}){
     return(<>
         <View style={estilos.componente}>
             <Text style={estilos.titulo}>Detalhes da Ong</Text>
@@ -11,13 +11,10 @@ export default function Detalhes({nome, categoria, imagem}){
                 <Text style={estilos.nome}>{nome}</Text>
             </View>
             <Text style={estilos.categoria}>{categoria}</Text>
-            <Text style={estilos.contato}>(XXX) 9XXXX-XXXX</Text>
-            <Text style={estilos.contato}>Email: Ong123@email.com</Text>
-            <Text style={estilos.descricao}>
-                Suspendisse facilisis vestibulum ipsum, et pretium
-                sapien accumsan ac. Morbi sit amet sem luctus, viverra est vitae, 
-                tincidunt libero. Mauris facilisis neque quis mauris congue auctor.
-            </Text>
+            <Text style={estilos.contato}>Contato 1: {contato1}</Text>
+            <Text style={estilos.contato}>Contato 2: {contato2}</Text>
+            <Text style={estilos.contato}>Email: {email}</Text>
+            <Text style={estilos.descricao}>{descricao}</Text>
         </View>
     </>)
 }

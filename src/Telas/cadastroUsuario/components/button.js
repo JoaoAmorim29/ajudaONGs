@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function ButtonCadastroUsuario(){
+export default function ButtonCadastroUsuario({onPress}){
     return(<>
         <View style={estilos.viewButton}>
-            <TouchableOpacity style={estilos.buttonUsuario}>
+            <TouchableOpacity style={estilos.buttonUsuario} onPress={onPress}>
                 <Text style={estilos.textButtonUsuario}>Cadastrar</Text>
             </TouchableOpacity>
         </View>

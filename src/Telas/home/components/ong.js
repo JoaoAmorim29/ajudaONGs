@@ -50,6 +50,7 @@ const estilos = StyleSheet.create({
     },
     categoriaCard:{
         fontWeight: "bold",
+        color: "gray"
     },
     informacoes:{
         justifyContent: "center",

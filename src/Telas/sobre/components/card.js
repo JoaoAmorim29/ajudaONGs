@@ -28,7 +28,7 @@ export default function Card(){
 
 const estilos = StyleSheet.create({
     card:{
-        backgroundColor: "#ddd",
+        backgroundColor: "#FFF",
         minHeight: 200,
         width: "90%",
         borderRadius: 10,
@@ -57,5 +57,6 @@ const estilos = StyleSheet.create({
     },
     Text:{
         fontWeight: 'bold',
+        color: "gray"
     }
 })

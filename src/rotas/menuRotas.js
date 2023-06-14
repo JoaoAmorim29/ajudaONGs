@@ -6,6 +6,7 @@ import CadastroOng from "../Telas/cadastroOng";
 import CadastroUsuario from "../Telas/cadastroUsuario";
 import Menu from "../Telas/menu";
 import Login from "../Telas/login";
+import LoginRotas from "./loginRotas";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function MenuRotas(){
                 <Stack.Screen name='Login' component={Login} />
                 <Stack.Screen name='CadastroOng' component={CadastroOng} />
                 <Stack.Screen name='CadastroUsuario' component={CadastroUsuario} />
+                <Stack.Screen name='LoginRotas' component={LoginRotas} />
             </Stack.Navigator>
         </NavigationContainer>
     )

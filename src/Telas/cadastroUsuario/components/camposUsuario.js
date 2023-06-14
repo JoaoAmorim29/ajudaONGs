@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {StyleSheet, View, Text} from 'react-native';
 import Input from "../../../shared/components/input/input";
+import ButtonCadastroUsuario from "./button";
+import users from "../../../mocks/users";
 
 export default function CamposUsuario(){
     const [nomeUsuario, setNomeUsuario] = useState('');
@@ -42,6 +44,7 @@ export default function CamposUsuario(){
                 <Text style={estilos.label}>Crie um senha</Text>
                 <Input 
                     placeholder="Digite uma senha"
+                    secureTextEntry={true}
                     name="senhaUsuario"
                     onChangeText={text => setSenhaUsuario(text)}
                 />
@@ -51,6 +54,7 @@ export default function CamposUsuario(){
                 <Text style={estilos.label}>Confirme sua senha</Text>
                 <Input 
                     placeholder="Digite sua senha novamente"
+                    secureTextEntry={true}
                     name="confirmeSenhaUsuario"
                     onChangeText={text => setConfirmeSenhaUsuario(text)}
                 />
@@ -64,6 +68,11 @@ export default function CamposUsuario(){
                     onChangeText={text => setContatoUsuario(text)}
                 />
             </View>
+
+            <ButtonCadastroUsuario onPress={() => {
+            users.push(usuarioData)
+            Alert.alert("Cadastrado com sucesso");
+        }}  key={ Math.random() * 999}/>
         </View>
     </>)
 }

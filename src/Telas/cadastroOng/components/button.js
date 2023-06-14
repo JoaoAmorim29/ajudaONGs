@@ -1,9 +1,9 @@
 import React, { useContext , useState} from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import OngsContext from "../../../context/ongsContext";
 import Ong from "../../home/components/ong";
 
 export default function ButtonCadastroOng({onPress}){
+
     return(<>
         <View style={estilos.viewButton}>
             <TouchableOpacity style={estilos.buttonOng} onPress={onPress}>

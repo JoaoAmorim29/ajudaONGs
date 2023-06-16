@@ -7,6 +7,6 @@ import Ongs from "./components/ongs";
 
 export default function Home(){
     return (<>
-        <Ongs Topo={Topo} ImageHome={ImageHome} /*Filter={Filter}*//>
+        <Ongs Topo={Topo} ImageHome={ImageHome}/*Filter={Filter}*//>
     </>)
 }

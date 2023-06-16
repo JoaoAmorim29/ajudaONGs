@@ -1,11 +1,15 @@
 import React, { useState, useContext } from "react";
-import {StyleSheet, View, Text, Image, Alert} from 'react-native';
+import {StyleSheet, View, Text, Image, Alert, TextInput} from 'react-native';
 import Input from "../../../shared/components/input/input";
 import ButtonCadastroOng from "./button";
-import ongs from "../../../mocks/ongs";
 import JusticeLeague from "../../../assets/justiceLeague.png"
 import { useNavigation } from '@react-navigation/native';
-
+import apiCep from "../../../services/apiCep";
+import api from "../../../services/apiOngs";
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import axios from "axios";
 
 export default function CamposOng(){
     const navigation = useNavigation();
@@ -14,6 +18,7 @@ export default function CamposOng(){
     const [emailOng, setEmailOng] = useState('');
     const [categoriaOng, setCategoriaOng] = useState('');
     const [senhaOng, setSenhaOng] = useState('');
+    const [confirmeSenhaOng, setConfirmeSenhaOng] = useState('');
     const [estadoOng, setEstadoOng] = useState('');
     const [cidadeOng, setCidadeOng] = useState('');
     const [cepOng, setCepOng] = useState('');
@@ -21,7 +26,7 @@ export default function CamposOng(){
     const [ruaOng, setRuaOng] = useState('');
     const [numeroOng, setNumeroOng] = useState('');
     const [complementoOng, setComplementoOng] = useState('');
-    const [contatoOng1, setContatoOng1] = useState('');
+    const [contatoOng, setContatoOng] = useState('');
     const [urlOng, setUrlOng] = useState('');
     const [descricaoOng, setDescricaoOng] = useState('');
     const [imagemOng, setImagemOng] = useState(JusticeLeague);
@@ -41,21 +46,84 @@ export default function CamposOng(){
             numero: numeroOng,
             complemento: complementoOng
         },
-        contato1: contatoOng1,
+        contato: contatoOng,
         url: urlOng,
         descricao: descricaoOng,
         imagem: imagemOng,
 
     }
 
+
+    async function CadastrarOng(){
+        try{
+            const response = await api.post(`/ongs`, ongData);
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+
+    async function BuscarCep(){
+        try{
+            const response = await apiCep.get(`${cepOng}/json/`);
+            setCepOng(response.data.cep)
+            setBairroOng(response.data.bairro);
+            setEstadoOng(response.data.uf);
+            setCidadeOng(response.data.localidade)
+        }catch(error){
+            console.log('ERRO' + error);
+        }
+
+    }
+
+
+    /* INFORMANDO SE HÁ ALGUM ERRO NO CAMPO DO CNPJ */
+    function validateCnpjError(cnpj){
+
+        let CNPJ = cnpj
+
+        if(validateCNPJ(CNPJ) === true){
+            setCod(CNPJ)
+            console.log(validateCNPJ(CNPJ))
+        } else if(validateCNPJ(CNPJ) === false){
+            setError("cod", {type: 'custom', message: 'CNPJ inválido'})
+            console.log(validateCNPJ(CNPJ))
+        }
+    }
+
+    const Schema = yup.object().shape({
+        emailOng: yup.string().required('Email é obrigatório'),
+        categoria: yup.string().required('Categoria é obrigatória'),
+        contato: yup.number().required('Número pra contato é obrigatório'),
+        url: yup.string(''),
+        imagem: yup.string(''),
+        senha: yup.string('').required('Senha é obrigatória'),
+        nomeOng: yup.string().required(''),
+        cepOng: yup.string().required('CEP é obrigatório.'),
+        descricaoOng: yup.string().required('Descrição é obrigatória.'),
+        estadoOng: yup.string().required('Estado é obrigatório.'),
+        cidadeOng: yup.string().required('Cidade é obrigatória.'),
+        enderecoOng: yup.string().required('Endereço é obrigatório.'),
+        bairroOng: yup.string().required('Bairro é obrigatório.'),
+        numeroOng: yup.string().required('Número é obrigatório.'),
+        complementoOng: yup.string(),
+        ruaOng: yup.string().required('Rua é obrigatória.')
+    })
+
+    const { register, handleSubmit, setError, formState: { errors } } = useForm({
+        mode: 'onChange',
+        resolver: yupResolver(Schema)
+    })
+
     return(<>
-        <View style={estilos.campos}>
+        <View style={estilos.campos} >
             <View>
                 <Text style={estilos.label}>Nome Ong</Text>
                 <Input 
                     placeholder="Digite o nome da Ong"
                     name='nomeOng'
                     onChangeText={text => setNomeOng(text)}
+                    value={nomeOng}
                 />
             </View>
 
@@ -65,6 +133,7 @@ export default function CamposOng(){
                     placeholder="Ong123@email.com"
                     name="emailOng"
                     onChangeText={text => setEmailOng(text)}
+                    value={emailOng}
                 />
             </View>
 
@@ -73,6 +142,7 @@ export default function CamposOng(){
                 <Input 
                     placeholder="Erradiação de pobreza, Vida na Água..."
                     name='categoriaOng'
+                    value={categoriaOng}
                     onChangeText={text => setCategoriaOng(text)}
                 />
             </View>
@@ -84,6 +154,7 @@ export default function CamposOng(){
                     name="senhaOng"
                     secureTextEntry={true}
                     onChangeText={text => setSenhaOng(text)}
+                    value={senhaOng}
                 />
             </View>
 
@@ -94,6 +165,19 @@ export default function CamposOng(){
                     name="confirmeSenhaOng"
                     secureTextEntry={true}
                     onChangeText={text => setConfirmeSenhaOng(text)}
+                    value={confirmeSenhaOng}
+                />
+            </View>
+
+            <View>
+                <Text style={estilos.label}>CEP</Text>
+                <Input
+                    placeholder="XXXXX-XXX"
+                    name="cepOng"
+                    onChangeText={text => setCepOng(text)}
+                    onFocus={()=>console.log("focado")}
+                    onBlur={()=> BuscarCep()}
+                    value={cepOng}
                 />
             </View>
 
@@ -103,6 +187,7 @@ export default function CamposOng(){
                     placeholder="Pará, Maranhão, São Paulo..."
                     name="estadoOng"
                     onChangeText={text => setEstadoOng(text)}
+                    value={estadoOng}
                 />
             </View>
 
@@ -112,15 +197,7 @@ export default function CamposOng(){
                     placeholder="Ananindeua, Belém, Castanhal..."
                     name="cidadeOng"
                     onChangeText={text => setCidadeOng(text)}
-                />
-            </View>
-
-            <View>
-                <Text style={estilos.label}>CEP</Text>
-                <Input 
-                    placeholder="XXXXX-XXX"
-                    name="cepOng"
-                    onChangeText={text => setCepOng(text)}
+                    value={cidadeOng}
                 />
             </View>
 
@@ -128,9 +205,9 @@ export default function CamposOng(){
                 <Text style={estilos.label}>Bairro</Text>
                 <Input 
                     placeholder="Digite seu bairro"
-                    name="barroOng"
+                    name="bairroOng"
                     onChangeText={text => setBairroOng(text)}
-                    
+                    value={bairroOng}
                 />
             </View>
 
@@ -140,6 +217,7 @@ export default function CamposOng(){
                     placeholder="Digite sua rua"
                     name="ruaOng"
                     onChangeText={text => setRuaOng(text)}
+                    value={ruaOng}
                 />
             </View>
 
@@ -149,6 +227,7 @@ export default function CamposOng(){
                     placeholder="Número do local"
                     name="numeroOng"
                     onChangeText={text => setNumeroOng(text)}
+                    value={numeroOng}
                 />
             </View>
 
@@ -158,6 +237,7 @@ export default function CamposOng(){
                     placeholder="Complemento"
                     name="ComplementoOng"
                     onChangeText={text => setComplementoOng(text)}
+                    value={complementoOng}
                 />
             </View>
 
@@ -165,8 +245,9 @@ export default function CamposOng(){
                 <Text style={estilos.label}>Contato (1)</Text>
                 <Input 
                     placeholder="(XX) 99999-9999"
-                    name="contatoOng1"
-                    onChangeText={text => setContatoOng1(text)}
+                    name="contatoOng"
+                    onChangeText={text => setContatoOng(text)}
+                    value={contatoOng}
                 />
             </View>
 
@@ -176,6 +257,7 @@ export default function CamposOng(){
                     placeholder="(XX) 99999-9999"
                     name="urlOng"
                     onChangeText={text => setUrlOng(text)}
+                    value={urlOng}
                 />
             </View>
 
@@ -184,7 +266,8 @@ export default function CamposOng(){
                 <Input 
                     placeholder="url"
                     name="imagemOng"
-                    onChangeText={text => setUrlOng(text)}
+                    onChangeText={text => setImagemOng(text)}
+                    value={imagemOng}
                 />
             </View>
             
@@ -193,12 +276,14 @@ export default function CamposOng(){
                 <Input 
                     name="descricaoOng"
                     onChangeText={text => setDescricaoOng(text)}
+                    value={descricaoOng}
                 />
             </View>
         </View>
 
         <ButtonCadastroOng onPress={() => {
-            ongs.lista.push(ongData);
+            CadastrarOng();
+            //ongs.lista.push(ongData);
             Alert.alert("Cadastrado com sucesso");
             navigation.navigate('LoginRotas');
             

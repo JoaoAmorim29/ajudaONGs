@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 import Input from "../../../shared/components/input/input";
 import ButtonCadastroUsuario from "./button";
-import users from "../../../mocks/users";
+import api from "../../../services/apiOngs";
+import { useNavigation } from '@react-navigation/native';
 
 export default function CamposUsuario(){
+    const navigation = useNavigation();
+
     const [nomeUsuario, setNomeUsuario] = useState('');
     const [emailUsuario, setEmailUsuario] = useState('');
     const [senhaUsuario, setSenhaUsuario] = useState('');
@@ -12,11 +15,19 @@ export default function CamposUsuario(){
     const [contatoUsuario, setContatoUsuario] = useState('');
 
     const usuarioData = {
-        nomeUsuario: nomeUsuario,
-        emailUsuario: emailUsuario,
-        senhaUsuario: senhaUsuario,
-        confirmeSenhaUsuario: confirmeSenhaUsuario,
-        contatoUsuario: contatoUsuario,
+        key: Math.random() * 999,
+        nome: nomeUsuario,
+        email: emailUsuario,
+        senha: senhaUsuario,
+        contato: contatoUsuario,
+    }
+
+    async function CadastrarUsuario(){
+        try{
+            const response = await api.post(`/users`, usuarioData);
+        }catch(error){
+            console.log(error);
+        }
     }
 
 
@@ -70,8 +81,9 @@ export default function CamposUsuario(){
             </View>
 
             <ButtonCadastroUsuario onPress={() => {
-            users.push(usuarioData)
-            Alert.alert("Cadastrado com sucesso");
+            CadastrarUsuario();
+            Alert.alert("Usuário cadastrado")
+            navigation.navigate('LoginRotas');
         }}  key={ Math.random() * 999}/>
         </View>
     </>)
